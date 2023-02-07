@@ -2,6 +2,8 @@
 
 This app will allow the eusers of our react front-end application to CRUD pets and their toys
 
+This application uses token authentication instead of sessions
+
 ## Resources
 
 ## Pets

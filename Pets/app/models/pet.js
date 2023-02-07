@@ -39,5 +39,8 @@ const petSchema = new mongoose.Schema(
 
 // virtuals go here
 // remember these are virtual properties, that use existing data, to add a property whenever we retrieve these documents.
+petSchema.virtual('fullTitle').get(function () {
+	return `${this.name} the ${this.type}`
+})
 
 module.exports = mongoose.model('Pet', petSchema)

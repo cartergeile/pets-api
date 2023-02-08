@@ -30,7 +30,7 @@ const router = express.Router()
 // INDEX
 // GET /examples
 // requireToken is middleware that protects any route it's a part of
-router.get('/pets', requireToken, (req, res, next) => {
+router.get('/pets', (req, res, next) => {
 	Pet.find()
 		.then((pets) => {
 			// `examples` will be an array of Mongoose documents
@@ -46,7 +46,7 @@ router.get('/pets', requireToken, (req, res, next) => {
 
 // SHOW
 // GET /pets/5a7db6c74d55bc51bdf39793
-router.get('/pets/:id', requireToken, (req, res, next) => {
+router.get('/pets/:id', (req, res, next) => {
 	// req.params.id will be set based on the `:id` in the route
 	Pet.findById(req.params.id)
 		.then(handle404)
@@ -59,6 +59,7 @@ router.get('/pets/:id', requireToken, (req, res, next) => {
 // CREATE
 // POST /examples
 router.post('/pets', requireToken, (req, res, next) => {
+	// the requireToken middleware, 
 	// set owner of new example to be current user
 	req.body.pet.owner = req.user.id
 
@@ -75,6 +76,7 @@ router.post('/pets', requireToken, (req, res, next) => {
 
 // UPDATE
 // PATCH /pets/5a7db6c74d55bc51bdf39793
+// removeBlanks is middleware that doesnt allow you to overwrite any data with an empty string(or empty value)
 router.patch('/pets/:id', requireToken, removeBlanks, (req, res, next) => {
 	// if the client attempts to change the `owner` property by including a new
 	// owner, prevent that by deleting that key/value pair

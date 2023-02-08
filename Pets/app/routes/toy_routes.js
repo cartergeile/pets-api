@@ -41,7 +41,7 @@ router.post('/toys/:petId', removeBlanks, (req, res, next) => {
 
 // PATCH -> update a toy
 // PATCH /toys/:petId/:toyId
-router.patch('/toys/:petId/:toyId', requireToken, removeBlanks, (req, res) => {
+router.patch('/toys/:petId/:toyId', requireToken, removeBlanks, (req, res, next) => {
   // get and save the IDs to variables
   const petId = req.params.petId
   const toyId = req.params.toyId

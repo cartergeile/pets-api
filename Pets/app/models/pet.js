@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 
+const toySchema = require('./toy')
+
 //PET -> has an owner, a name, a type, and age, adoptable(boolean)
 // eventually each pet will have a toys array
 // this model will use virtuals to produce additional data on each pet
@@ -22,6 +24,7 @@ const petSchema = new mongoose.Schema(
 			type: Boolean,
 			require: true
 		},
+		toys: [toySchema],
 		owner: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User',

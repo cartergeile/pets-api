@@ -32,6 +32,7 @@ const router = express.Router()
 // requireToken is middleware that protects any route it's a part of
 router.get('/pets', (req, res, next) => {
 	Pet.find()
+		.populate('owner')
 		.then((pets) => {
 			// `examples` will be an array of Mongoose documents
 			// we want to convert each one to a POJO, so we use `.map` to
@@ -49,6 +50,7 @@ router.get('/pets', (req, res, next) => {
 router.get('/pets/:id', (req, res, next) => {
 	// req.params.id will be set based on the `:id` in the route
 	Pet.findById(req.params.id)
+		.populate('owner')
 		.then(handle404)
 		// if `findById` is succesful, respond with 200 and "pet" JSON
 		.then((pet) => res.status(200).json({ pet:pet.toObject() }))
